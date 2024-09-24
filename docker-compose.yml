@@ -5,8 +5,8 @@ services:
         pull_policy: always
         container_name: worker1
         volumes:
-            - /fs/cml-projects-ErasingInvisible/codabench:/codabench:rshared
-            - /fs/cml-projects-ErasingInvisible/program:/program:rshared
+            - ${HOST_DIRECTORY}/codabench:/codabench
+            - ${HOST_DIRECTORY}/eval-program:/program
             - /var/run/docker.sock:/var/run/docker.sock
         env_file:
             - .env
@@ -16,6 +16,7 @@ services:
                 max-size: 50m
                 max-file: 3
         runtime: nvidia
+        network_mode: host
         deploy:
             resources:
                 reservations:
@@ -24,27 +25,3 @@ services:
                           device_ids: ['0']
                           capabilities:
                               - gpu
-    # worker2:
-    #     image: johnding1996/codabench-erasinginvisible:latest
-    #     pull_policy: always
-    #     container_name: worker2
-    #     volumes:
-    #         - /fs/cml-projects-ErasingInvisible/codabench:/codabench:rshared
-    #         - /fs/cml-projects-ErasingInvisible/program:/program:rshared
-    #         - /var/run/docker.sock:/var/run/docker.sock
-    #     env_file:
-    #         - .env
-    #     restart: unless-stopped
-    #     logging:
-    #         options:
-    #             max-size: 50m
-    #             max-file: 3
-    #     runtime: nvidia
-    #     deploy:
-    #         resources:
-    #             reservations:
-    #                 devices:
-    #                     - driver: nvidia
-    #                       device_ids: ['1']
-    #                       capabilities:
-    #                           - gpu
