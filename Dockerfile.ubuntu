@@ -1,0 +1,52 @@
+FROM --platform=linux/amd64 python:3.9
+
+# This makes output not buffer and return immediately, nice for seeing results in stdout
+ENV PYTHONUNBUFFERED=1
+
+# Install Docker
+RUN apt-get update && curl -fsSL https://get.docker.com | sh
+
+# Install CUDA 11.8
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gnupg2 curl ca-certificates && \
+    curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub | apt-key add - && \
+    echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/cuda.list && \
+    apt-get update && apt-get install -y --no-install-recommends \
+    cuda-11-8 cuda-runtime-11-8 && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install cuDNN 8.9
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libcudnn8=8.9.*-1+cuda11.8 \
+    libcudnn8-dev=8.9.*-1+cuda11.8 && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set CUDA and cuDNN environment variables
+ENV PATH=/usr/local/cuda-11.8/bin:${PATH}
+ENV LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:${LD_LIBRARY_PATH}
+
+# Nvidia Container Toolkit for cuda use with docker
+# [source](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+RUN curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+    && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+RUN apt-get update -y;
+RUN apt-get install -y nvidia-container-toolkit
+
+# Make it explicit that we're using GPUs
+ENV USE_GPU=1
+
+# Install PyTorch with CUDA 11.8 support and other dependencies
+ENV PATH=$PATH:/root/.local/bin
+COPY ./compute_worker/requirements.txt ./
+RUN pip3 install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cu118
+RUN pip3 install --no-cache-dir -r ./requirements.txt
+
+ADD compute_worker .
+
+CMD celery -A compute_worker worker \
+    -l info \
+    -Q compute-worker \
+    -n compute-worker@%n \
+    --concurrency=1
