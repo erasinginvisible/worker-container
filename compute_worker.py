@@ -743,8 +743,9 @@ class Run:
         # If GPU UUIDs are available, add the --gpus flag with correct quotes
         if gpu_uuids:
             # Include both double and single quotes around device=...
-            gpu_devices_arg = f"'\"device={gpu_uuids}\"'"
-            engine_cmd.extend(["--gpus", gpu_devices_arg])
+            # gpu_devices_arg = f"'\"device={gpu_uuids}\"'"
+            # not useful when subprocess run with shell=False
+            engine_cmd.extend(["--gpus", f'device={gpu_uuids}'])
         else:
             print("No GPUs available in the outer container.")
 
