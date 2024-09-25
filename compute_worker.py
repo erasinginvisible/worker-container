@@ -904,13 +904,11 @@ class Run:
 
         logger.info("Running scoring program, and then ingestion program")
         loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
         gathered_tasks = asyncio.gather(
-            self._run_program_directory(
-                program_dir, kind="program", can_be_output=True
-            ),
-            # self._run_program_directory(ingestion_program_dir, kind='ingestion'),
+            self._run_program_directory(program_dir, kind='program', can_be_output=True),
+            self._run_program_directory(ingestion_program_dir, kind='ingestion'),
             self.watch_detailed_results(),
+            loop=loop,
         )
 
         signal.signal(signal.SIGALRM, alarm_handler)

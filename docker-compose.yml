@@ -1,8 +1,8 @@
 # Codabench GPU worker (NVIDIA)
 services:
     worker1:
-        image: codabench-erasinginvisible:latest
-        # pull_policy: always
+        image: johnding1996/codabench-erasinginvisible:latest
+        pull_policy: always
         container_name: worker1
         volumes:
             - ${HOST_DIRECTORY}/codabench:/codabench

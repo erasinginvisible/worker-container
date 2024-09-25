@@ -12,7 +12,7 @@ check_command() {
 # 1. Check for Docker Compose
 echo "Checking required tools..."
 
-check_command "docker compose" || MISSING_TOOLS+="Docker Compose "
+check_command "sudo docker compose" || MISSING_TOOLS+="Docker Compose "
 
 if ! ldconfig -p | grep -q libcuda.so; then
     echo "NVIDIA Container Toolkit is not installed or not properly configured"
