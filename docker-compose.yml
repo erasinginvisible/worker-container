@@ -25,3 +25,178 @@ services:
                           device_ids: ['0']
                           capabilities:
                               - gpu
+    worker2:
+        image: johnding1996/codabench-erasinginvisible:latest
+        pull_policy: always
+        container_name: worker1
+        volumes:
+            - ${HOST_DIRECTORY}/codabench:/codabench
+            - ${HOST_DIRECTORY}/eval-program:/eval-program
+            - /var/run/docker.sock:/var/run/docker.sock
+        env_file:
+            - .env
+        restart: unless-stopped
+        logging:
+            options:
+                max-size: 50m
+                max-file: 3
+        runtime: nvidia
+        network_mode: host
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          device_ids: ['1']
+                          capabilities:
+                              - gpu
+    worker3:
+        image: johnding1996/codabench-erasinginvisible:latest
+        pull_policy: always
+        container_name: worker1
+        volumes:
+            - ${HOST_DIRECTORY}/codabench:/codabench
+            - ${HOST_DIRECTORY}/eval-program:/eval-program
+            - /var/run/docker.sock:/var/run/docker.sock
+        env_file:
+            - .env
+        restart: unless-stopped
+        logging:
+            options:
+                max-size: 50m
+                max-file: 3
+        runtime: nvidia
+        network_mode: host
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          device_ids: ['2']
+                          capabilities:
+                              - gpu
+    worker4:
+        image: johnding1996/codabench-erasinginvisible:latest
+        pull_policy: always
+        container_name: worker1
+        volumes:
+            - ${HOST_DIRECTORY}/codabench:/codabench
+            - ${HOST_DIRECTORY}/eval-program:/eval-program
+            - /var/run/docker.sock:/var/run/docker.sock
+        env_file:
+            - .env
+        restart: unless-stopped
+        logging:
+            options:
+                max-size: 50m
+                max-file: 3
+        runtime: nvidia
+        network_mode: host
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          device_ids: ['3']
+                          capabilities:
+                              - gpu
+    worker5:
+        image: johnding1996/codabench-erasinginvisible:latest
+        pull_policy: always
+        container_name: worker1
+        volumes:
+            - ${HOST_DIRECTORY}/codabench:/codabench
+            - ${HOST_DIRECTORY}/eval-program:/eval-program
+            - /var/run/docker.sock:/var/run/docker.sock
+        env_file:
+            - .env
+        restart: unless-stopped
+        logging:
+            options:
+                max-size: 50m
+                max-file: 3
+        runtime: nvidia
+        network_mode: host
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          device_ids: ['4']
+                          capabilities:
+                              - gpu
+    worker6:
+        image: johnding1996/codabench-erasinginvisible:latest
+        pull_policy: always
+        container_name: worker1
+        volumes:
+            - ${HOST_DIRECTORY}/codabench:/codabench
+            - ${HOST_DIRECTORY}/eval-program:/eval-program
+            - /var/run/docker.sock:/var/run/docker.sock
+        env_file:
+            - .env
+        restart: unless-stopped
+        logging:
+            options:
+                max-size: 50m
+                max-file: 3
+        runtime: nvidia
+        network_mode: host
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          device_ids: ['5']
+                          capabilities:
+                              - gpu
+    worker7:
+        image: johnding1996/codabench-erasinginvisible:latest
+        pull_policy: always
+        container_name: worker1
+        volumes:
+            - ${HOST_DIRECTORY}/codabench:/codabench
+            - ${HOST_DIRECTORY}/eval-program:/eval-program
+            - /var/run/docker.sock:/var/run/docker.sock
+        env_file:
+            - .env
+        restart: unless-stopped
+        logging:
+            options:
+                max-size: 50m
+                max-file: 3
+        runtime: nvidia
+        network_mode: host
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          device_ids: ['6']
+                          capabilities:
+                              - gpu
+    worker8:
+        image: johnding1996/codabench-erasinginvisible:latest
+        pull_policy: always
+        container_name: worker1
+        volumes:
+            - ${HOST_DIRECTORY}/codabench:/codabench
+            - ${HOST_DIRECTORY}/eval-program:/eval-program
+            - /var/run/docker.sock:/var/run/docker.sock
+        env_file:
+            - .env
+        restart: unless-stopped
+        logging:
+            options:
+                max-size: 50m
+                max-file: 3
+        runtime: nvidia
+        network_mode: host
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          device_ids: ['7']
+                          capabilities:
+                              - gpu
