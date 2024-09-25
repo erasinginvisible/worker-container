@@ -733,6 +733,8 @@ class Run:
             # Don't buffer python output, so we don't lose any
             "-e",
             "PYTHONUNBUFFERED=1",
+            # IPC is needed for shared memory
+            "--ipc=host",
         ]
 
         # Get the available GPU UUIDs
