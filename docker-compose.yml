@@ -1,12 +1,12 @@
 # Codabench GPU worker (NVIDIA)
 services:
     worker1:
-        image: johnding1996/codabench-erasinginvisible:latest
-        pull_policy: always
+        image: codabench-erasinginvisible:latest
+        # pull_policy: always
         container_name: worker1
         volumes:
             - ${HOST_DIRECTORY}/codabench:/codabench
-            - ${HOST_DIRECTORY}/eval-program:/program
+            - ${HOST_DIRECTORY}/eval-program:/eval-program
             - /var/run/docker.sock:/var/run/docker.sock
         env_file:
             - .env

@@ -11,14 +11,14 @@ check_docker_login() {
 
 # Check Docker login status
 echo "Checking Docker login status..."
-check_docker_login
+# check_docker_login
 
 echo "Docker is logged in. Proceeding with build and push..."
 
 echo "Building the worker container..."
-docker build --no-cache -f Dockerfile.compute_worker_gpu -t johnding1996/codabench-erasinginvisible:latest ./
+sudo docker build --no-cache -f Dockerfile.compute_worker_gpu -t codabench-erasinginvisible:latest ./
 
-echo "Pushing the worker container to docker hub..."
-docker push johnding1996/codabench-erasinginvisible --all-tags
+# echo "Pushing the worker container to docker hub..."
+# docker push johnding1996/codabench-erasinginvisible --all-tags
 
 echo "Build and push completed successfully."

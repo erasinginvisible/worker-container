@@ -49,6 +49,9 @@ fi
 
 # 3. Start services with Docker Compose
 echo "Starting services with Docker Compose..."
+set -a
+source .env
+set +a
 sudo docker compose up -d
 if [ $? -eq 0 ]; then
     echo "Success: Docker Compose services are up and running."
