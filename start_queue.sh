@@ -9,18 +9,10 @@ check_command() {
     return 0
 }
 
-# 1. Check for Docker, Docker Compose, and NVIDIA Container Toolkit
+# 1. Check for Docker Compose
 echo "Checking required tools..."
 
-check_command docker || MISSING_TOOLS+="Docker "
-if check_command docker; then
-    if ! docker info &> /dev/null; then
-        echo "Docker daemon is not running"
-        MISSING_TOOLS+="Docker(not running) "
-    fi
-fi
-
-check_command docker-compose || MISSING_TOOLS+="Docker Compose "
+check_command "docker compose" || MISSING_TOOLS+="Docker Compose "
 
 if ! ldconfig -p | grep -q libcuda.so; then
     echo "NVIDIA Container Toolkit is not installed or not properly configured"
@@ -65,5 +57,4 @@ else
     exit 1
 fi
 
-# 4. Tell success
 echo "All operations completed successfully!"
