@@ -648,6 +648,18 @@ class Run:
 
         return path
 
+    def get_available_gpus(self):
+        try:
+            result = subprocess.check_output(
+                ["nvidia-smi", "--query-gpu=uuid", "--format=csv,noheader"],
+                universal_newlines=True,
+            )
+            gpu_uuids = result.strip().split("\n")
+            return ",".join(gpu_uuids)
+        except subprocess.CalledProcessError as e:
+            print(f"Error fetching GPU UUIDs: {e}")
+            return ""
+
     async def _run_program_directory(self, program_dir, kind, can_be_output=False):
         # If the directory doesn't even exist, move on
         if not os.path.exists(program_dir):
@@ -723,9 +735,16 @@ class Run:
             "PYTHONUNBUFFERED=1",
         ]
 
-        # GPU or not
-        if os.environ.get("USE_GPU"):
-            engine_cmd.extend(["--gpus", "all"])
+        # Get the available GPU UUIDs
+        gpu_uuids = self.get_available_gpus()
+
+        # If GPU UUIDs are available, add the --gpus flag with correct quotes
+        if gpu_uuids:
+            # Include both double and single quotes around device=...
+            gpu_devices_arg = f"'\"device={gpu_uuids}\"'"
+            engine_cmd.extend(["--gpus", gpu_devices_arg])
+        else:
+            print("No GPUs available in the outer container.")
 
         if kind == "ingestion":
             # program here is either scoring program or submission, depends on if this ran during Prediction or Scoring
@@ -905,8 +924,10 @@ class Run:
         logger.info("Running scoring program, and then ingestion program")
         loop = asyncio.new_event_loop()
         gathered_tasks = asyncio.gather(
-            self._run_program_directory(program_dir, kind='program', can_be_output=True),
-            self._run_program_directory(ingestion_program_dir, kind='ingestion'),
+            self._run_program_directory(
+                program_dir, kind="program", can_be_output=True
+            ),
+            # self._run_proqgram_directory(ingestion_program_dir, kind="ingestion"),
             self.watch_detailed_results(),
             loop=loop,
         )

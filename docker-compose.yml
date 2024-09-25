@@ -28,7 +28,7 @@ services:
     worker2:
         image: johnding1996/codabench-erasinginvisible:latest
         pull_policy: always
-        container_name: worker1
+        container_name: worker2
         volumes:
             - ${HOST_DIRECTORY}/codabench:/codabench
             - ${HOST_DIRECTORY}/eval-program:/eval-program
@@ -53,7 +53,7 @@ services:
     worker3:
         image: johnding1996/codabench-erasinginvisible:latest
         pull_policy: always
-        container_name: worker1
+        container_name: worker3
         volumes:
             - ${HOST_DIRECTORY}/codabench:/codabench
             - ${HOST_DIRECTORY}/eval-program:/eval-program
@@ -78,7 +78,7 @@ services:
     worker4:
         image: johnding1996/codabench-erasinginvisible:latest
         pull_policy: always
-        container_name: worker1
+        container_name: worker4
         volumes:
             - ${HOST_DIRECTORY}/codabench:/codabench
             - ${HOST_DIRECTORY}/eval-program:/eval-program
@@ -103,7 +103,7 @@ services:
     worker5:
         image: johnding1996/codabench-erasinginvisible:latest
         pull_policy: always
-        container_name: worker1
+        container_name: worker5
         volumes:
             - ${HOST_DIRECTORY}/codabench:/codabench
             - ${HOST_DIRECTORY}/eval-program:/eval-program
@@ -128,7 +128,7 @@ services:
     worker6:
         image: johnding1996/codabench-erasinginvisible:latest
         pull_policy: always
-        container_name: worker1
+        container_name: worker6
         volumes:
             - ${HOST_DIRECTORY}/codabench:/codabench
             - ${HOST_DIRECTORY}/eval-program:/eval-program
@@ -153,7 +153,7 @@ services:
     worker7:
         image: johnding1996/codabench-erasinginvisible:latest
         pull_policy: always
-        container_name: worker1
+        container_name: worker7
         volumes:
             - ${HOST_DIRECTORY}/codabench:/codabench
             - ${HOST_DIRECTORY}/eval-program:/eval-program
@@ -178,7 +178,7 @@ services:
     worker8:
         image: johnding1996/codabench-erasinginvisible:latest
         pull_policy: always
-        container_name: worker1
+        container_name: worker8
         volumes:
             - ${HOST_DIRECTORY}/codabench:/codabench
             - ${HOST_DIRECTORY}/eval-program:/eval-program

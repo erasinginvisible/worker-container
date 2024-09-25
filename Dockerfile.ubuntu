@@ -34,8 +34,6 @@ RUN curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearm
 RUN apt-get update -y;
 RUN apt-get install -y nvidia-container-toolkit
 
-# Make it explicit that we're using GPUs
-ENV USE_GPU=1
 
 # Install PyTorch with CUDA 11.8 support and other dependencies
 ENV PATH=$PATH:/root/.local/bin
