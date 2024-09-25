@@ -17,6 +17,7 @@ services:
                 max-file: 3
         runtime: nvidia
         network_mode: host
+        ipc: host
         deploy:
             resources:
                 reservations:
@@ -42,6 +43,7 @@ services:
                 max-file: 3
         runtime: nvidia
         network_mode: host
+        ipc: host
         deploy:
             resources:
                 reservations:
@@ -67,6 +69,7 @@ services:
                 max-file: 3
         runtime: nvidia
         network_mode: host
+        ipc: host
         deploy:
             resources:
                 reservations:
@@ -92,6 +95,7 @@ services:
                 max-file: 3
         runtime: nvidia
         network_mode: host
+        ipc: host
         deploy:
             resources:
                 reservations:
@@ -117,6 +121,7 @@ services:
                 max-file: 3
         runtime: nvidia
         network_mode: host
+        ipc: host
         deploy:
             resources:
                 reservations:
@@ -142,6 +147,7 @@ services:
                 max-file: 3
         runtime: nvidia
         network_mode: host
+        ipc: host
         deploy:
             resources:
                 reservations:
@@ -167,6 +173,7 @@ services:
                 max-file: 3
         runtime: nvidia
         network_mode: host
+        ipc: host
         deploy:
             resources:
                 reservations:
@@ -192,6 +199,7 @@ services:
                 max-file: 3
         runtime: nvidia
         network_mode: host
+        ipc: host
         deploy:
             resources:
                 reservations:
